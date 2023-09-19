@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# nestjs-task-management
-A Jira-like task management clone built using nest.js for the Udemy course "Develop and deploy enterprise back-end applications following best practices using Node.js and TypeScript" by Ariel Weinberger
-=======
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -75,4 +71,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
->>>>>>> 5f1610e (get task by id and delete task)
