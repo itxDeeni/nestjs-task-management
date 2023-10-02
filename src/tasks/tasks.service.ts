@@ -17,8 +17,16 @@ export class TasksService {
     if (!found) {
       throw new NotFoundException();
     }
-    return record;
+    return found;
   }
+
+ async createTask(createTaskDto: createTaskDto): Promise<Task>{
+  const { title, description } = createTaskDto;
+
+  const task = this.tasksRepository.createTask(createTaskDto)
+
+  return task;
+ }
 
   // createTask(createTaskDto: createTaskDto): Promise<Task> {
   //   return this.tasksRepository.createTask(createTaskDto);
