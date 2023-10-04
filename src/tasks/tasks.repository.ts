@@ -16,7 +16,7 @@ export class TasksRepository extends Repository<Task> {
         const query = this.createQueryBuilder('task');
 
         if (status) {
-            query.andWhere('task.status= :status', { status: 'OPEN'})
+            query.andWhere('task.status= :status', { status: 'OPEN'});
         }
 
         if (search) {

@@ -18,18 +18,7 @@ import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @Controller('tasks')
 export class TasksController {
-  constructor(private tasksService: TasksService) {}
-
-  // @Get()
-  // getAllTasks(@Query() filterDto: GetTasksFilterDto): Task[] {
-  //   // if we have any filters defined, call taskService.getTaskWithFilters
-  //   //otherwise, just get all tasks
-  //   if (Object.keys(filterDto).length) {
-  //     return this.tasksService.getTasksWithFilters(filterDto);
-  //   } else {
-  //     return this.tasksService.getAllTasks();
-  //   }
-  // }
+  constructor(private tasksService: TasksService) {}  
 
   @Get('/:id')
   async getTaskById(@Param('id') id: string): Promise<Task> {
@@ -37,7 +26,7 @@ export class TasksController {
   }
 
   @Get()
-  getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+  getTasks(@Query() filterDto: GetTasksFilterDto): Promise<Task[]> {
     return this.tasksService.getTasks(filterDto);
   }
 
