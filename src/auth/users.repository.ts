@@ -1,7 +1,12 @@
 import { Repository, DataSource } from 'typeorm';
 import { User } from './user.entitiy';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -12,8 +17,25 @@ export class UserRepository extends Repository<User> {
   async createUser(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     const { username, password } = authCredentialsDto;
 
-    const user = this.create({ username, password });
+    const salt = await bcrypt.genSalt();
 
-    await this.save(user);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    console.log('salt', salt);
+
+    console.log('hashedPassword', hashedPassword);
+
+    const user = this.create({ username, password: hashedPassword });
+
+    try {
+      await this.save(user);
+    } catch (error) {
+      if (error.code === 23505) {
+        console.log(error);
+        throw new ConflictException(` Username : ${username} already exist`);
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 }
